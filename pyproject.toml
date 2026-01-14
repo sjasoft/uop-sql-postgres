@@ -1,0 +1,27 @@
+[project]
+name = "uop-sql-postgres"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Samantha Atkins", email = "samantha@sjasoft.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "psycopg[binary,c,pool]>=3.3.2",
+    "psycopg2>=2.9.11",
+]
+
+[project.scripts]
+uop-sql-postgres = "uop_sql_postgres:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = true
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
