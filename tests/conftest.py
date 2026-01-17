@@ -1,7 +1,7 @@
 import pytest
 import pytest_asyncio
 from uop.core.plugin_testing.harness import Plugin, AsyncPlugin
-from uop.sql.postgres import adaptor
+from uop.sql.postgres import adaptor, async_adaptor
 from uop.meta.schemas.predefined import pkm_schema
 import uuid
 
