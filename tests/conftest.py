@@ -59,5 +59,5 @@ async def async_db_harness():
     yield plug_in  # Provide the database adapter instance to the tests
 
     # No need to drop the default database, just close the connection
-    await db._engine.dispose()
+    await db.close()
     master.drop_database_named(db_name)
