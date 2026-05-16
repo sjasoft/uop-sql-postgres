@@ -30,7 +30,7 @@ def db_harness():
     yield plug_in  # Provide the database adapter instance to the tests
 
     # No need to drop the default database, just close the connection
-    db.close()
+    db.close_db()
     master.drop_database_named(db_name)
     # TODO: get rid of this postgres database after tests complete
 
@@ -59,5 +59,5 @@ async def async_db_harness():
     yield plug_in  # Provide the database adapter instance to the tests
 
     # No need to drop the default database, just close the connection
-    await db.close()
+    await db.close_db()
     master.drop_database_named(db_name)

@@ -138,3 +138,30 @@ class AsyncSQLDatabase(async_base.AsyncSQLBaseDatabase):
                 "row_factory": dict_row,
             },
         )
+
+    async def get_connection(self):
+        return await self._pool.getconn()
+
+    async def open_db(self):
+        """Opens the database connection."""
+        host = self._credentials.get("host", "localhost")
+        port = self._credentials.get("port", 5432)
+        if not self._pool:
+            self.init_pool(
+                user=self.db_user,
+                password=self.db_password,
+                host=host,
+                port=port,
+                database=self._dbname,
+            )
+        self._conn = await self.get_connection()
+        self._autoconn = await self.get_connection()
+        await self.set_autocommit(self._autoconn, True)
+        await super().open_db()
+
+    async def get_existing_tables(self):
+        async with self._conn.cursor() as cursor:
+            await cursor.execute(
+                "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"
+            )
+            return {row['table_name'] for row in await cursor.fetchall()}
