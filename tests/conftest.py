@@ -50,8 +50,11 @@ async def async_db_harness():
     )
 
     master.ensure_database_named(db_name)
+ #   db = adaptor.AsyncSQLDatabase(
+ #       db_name, 'pkm_schema', username="myuser", password="mypassword", driver="asyncpg"
+ #   )
     db = adaptor.AsyncSQLDatabase(
-        db_name, 'pkm_schema', username="myuser", password="mypassword", driver="asyncpg"
+        db_name, 'pkm_schema', username="myuser", password="mypassword"
     )
     await db.open_db()
     plug_in = AsyncPlugin(db)
